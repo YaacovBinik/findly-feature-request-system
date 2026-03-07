@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { FeaturesService } from './features.service';
 import { CreateFeatureDto } from './dto/create-feature.dto';
 
@@ -9,5 +9,10 @@ export class FeaturesController {
   @Post()
   create(@Body() createFeatureDto: CreateFeatureDto) {
     return this.featuresService.create(createFeatureDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.featuresService.findAll();
   }
 }

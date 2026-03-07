@@ -14,4 +14,8 @@ export class FeaturesService {
       },
     });
   }
+
+  async findAll() {
+    return this.prisma.feature.findMany();
+  }
 }
