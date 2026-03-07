@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class CreateFeatureDto {
   @IsString()
@@ -10,4 +10,8 @@ export class CreateFeatureDto {
   @IsNotEmpty()
   @MaxLength(1000)
   description: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
 }

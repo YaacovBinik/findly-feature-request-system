@@ -11,6 +11,7 @@ export class FeaturesService {
       data: {
         title: createFeatureDto.title,
         description: createFeatureDto.description,
+        email: createFeatureDto.email
       },
     });
   }
