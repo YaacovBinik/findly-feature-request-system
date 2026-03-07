@@ -14,4 +14,8 @@ export class CreateFeatureDto {
   @IsEmail()
   @IsNotEmpty()
   email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  creatorIdentifier: string;
 }

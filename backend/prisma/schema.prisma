@@ -9,12 +9,13 @@ datasource db {
 }
 
 model Feature {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  email       String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                String   @id @default(uuid())
+  title             String
+  description       String
+  email             String
+  creatorIdentifier String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   votes Vote[]
 }

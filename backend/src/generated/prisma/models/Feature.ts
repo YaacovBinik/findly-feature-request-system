@@ -29,6 +29,7 @@ export type FeatureMinAggregateOutputType = {
   title: string | null
   description: string | null
   email: string | null
+  creatorIdentifier: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -38,6 +39,7 @@ export type FeatureMaxAggregateOutputType = {
   title: string | null
   description: string | null
   email: string | null
+  creatorIdentifier: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -47,6 +49,7 @@ export type FeatureCountAggregateOutputType = {
   title: number
   description: number
   email: number
+  creatorIdentifier: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -58,6 +61,7 @@ export type FeatureMinAggregateInputType = {
   title?: true
   description?: true
   email?: true
+  creatorIdentifier?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -67,6 +71,7 @@ export type FeatureMaxAggregateInputType = {
   title?: true
   description?: true
   email?: true
+  creatorIdentifier?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -76,6 +81,7 @@ export type FeatureCountAggregateInputType = {
   title?: true
   description?: true
   email?: true
+  creatorIdentifier?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -158,6 +164,7 @@ export type FeatureGroupByOutputType = {
   title: string
   description: string
   email: string
+  creatorIdentifier: string
   createdAt: Date
   updatedAt: Date
   _count: FeatureCountAggregateOutputType | null
@@ -188,6 +195,7 @@ export type FeatureWhereInput = {
   title?: Prisma.StringFilter<"Feature"> | string
   description?: Prisma.StringFilter<"Feature"> | string
   email?: Prisma.StringFilter<"Feature"> | string
+  creatorIdentifier?: Prisma.StringFilter<"Feature"> | string
   createdAt?: Prisma.DateTimeFilter<"Feature"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Feature"> | Date | string
   votes?: Prisma.VoteListRelationFilter
@@ -198,6 +206,7 @@ export type FeatureOrderByWithRelationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  creatorIdentifier?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   votes?: Prisma.VoteOrderByRelationAggregateInput
@@ -211,6 +220,7 @@ export type FeatureWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Feature"> | string
   description?: Prisma.StringFilter<"Feature"> | string
   email?: Prisma.StringFilter<"Feature"> | string
+  creatorIdentifier?: Prisma.StringFilter<"Feature"> | string
   createdAt?: Prisma.DateTimeFilter<"Feature"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Feature"> | Date | string
   votes?: Prisma.VoteListRelationFilter
@@ -221,6 +231,7 @@ export type FeatureOrderByWithAggregationInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  creatorIdentifier?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.FeatureCountOrderByAggregateInput
@@ -236,6 +247,7 @@ export type FeatureScalarWhereWithAggregatesInput = {
   title?: Prisma.StringWithAggregatesFilter<"Feature"> | string
   description?: Prisma.StringWithAggregatesFilter<"Feature"> | string
   email?: Prisma.StringWithAggregatesFilter<"Feature"> | string
+  creatorIdentifier?: Prisma.StringWithAggregatesFilter<"Feature"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Feature"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Feature"> | Date | string
 }
@@ -245,6 +257,7 @@ export type FeatureCreateInput = {
   title: string
   description: string
   email: string
+  creatorIdentifier: string
   createdAt?: Date | string
   updatedAt?: Date | string
   votes?: Prisma.VoteCreateNestedManyWithoutFeatureInput
@@ -255,6 +268,7 @@ export type FeatureUncheckedCreateInput = {
   title: string
   description: string
   email: string
+  creatorIdentifier: string
   createdAt?: Date | string
   updatedAt?: Date | string
   votes?: Prisma.VoteUncheckedCreateNestedManyWithoutFeatureInput
@@ -265,6 +279,7 @@ export type FeatureUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  creatorIdentifier?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   votes?: Prisma.VoteUpdateManyWithoutFeatureNestedInput
@@ -275,6 +290,7 @@ export type FeatureUncheckedUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  creatorIdentifier?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   votes?: Prisma.VoteUncheckedUpdateManyWithoutFeatureNestedInput
@@ -285,6 +301,7 @@ export type FeatureCreateManyInput = {
   title: string
   description: string
   email: string
+  creatorIdentifier: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -294,6 +311,7 @@ export type FeatureUpdateManyMutationInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  creatorIdentifier?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -303,6 +321,7 @@ export type FeatureUncheckedUpdateManyInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  creatorIdentifier?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -312,6 +331,7 @@ export type FeatureCountOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  creatorIdentifier?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -321,6 +341,7 @@ export type FeatureMaxOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  creatorIdentifier?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -330,6 +351,7 @@ export type FeatureMinOrderByAggregateInput = {
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  creatorIdentifier?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -366,6 +388,7 @@ export type FeatureCreateWithoutVotesInput = {
   title: string
   description: string
   email: string
+  creatorIdentifier: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -375,6 +398,7 @@ export type FeatureUncheckedCreateWithoutVotesInput = {
   title: string
   description: string
   email: string
+  creatorIdentifier: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -400,6 +424,7 @@ export type FeatureUpdateWithoutVotesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  creatorIdentifier?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -409,6 +434,7 @@ export type FeatureUncheckedUpdateWithoutVotesInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  creatorIdentifier?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -449,6 +475,7 @@ export type FeatureSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   title?: boolean
   description?: boolean
   email?: boolean
+  creatorIdentifier?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   votes?: boolean | Prisma.Feature$votesArgs<ExtArgs>
@@ -460,6 +487,7 @@ export type FeatureSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   title?: boolean
   description?: boolean
   email?: boolean
+  creatorIdentifier?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["feature"]>
@@ -469,6 +497,7 @@ export type FeatureSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   title?: boolean
   description?: boolean
   email?: boolean
+  creatorIdentifier?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["feature"]>
@@ -478,11 +507,12 @@ export type FeatureSelectScalar = {
   title?: boolean
   description?: boolean
   email?: boolean
+  creatorIdentifier?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type FeatureOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "email" | "createdAt" | "updatedAt", ExtArgs["result"]["feature"]>
+export type FeatureOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "email" | "creatorIdentifier" | "createdAt" | "updatedAt", ExtArgs["result"]["feature"]>
 export type FeatureInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   votes?: boolean | Prisma.Feature$votesArgs<ExtArgs>
   _count?: boolean | Prisma.FeatureCountOutputTypeDefaultArgs<ExtArgs>
@@ -500,6 +530,7 @@ export type $FeaturePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     title: string
     description: string
     email: string
+    creatorIdentifier: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["feature"]>
@@ -930,6 +961,7 @@ export interface FeatureFieldRefs {
   readonly title: Prisma.FieldRef<"Feature", 'String'>
   readonly description: Prisma.FieldRef<"Feature", 'String'>
   readonly email: Prisma.FieldRef<"Feature", 'String'>
+  readonly creatorIdentifier: Prisma.FieldRef<"Feature", 'String'>
   readonly createdAt: Prisma.FieldRef<"Feature", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Feature", 'DateTime'>
 }
