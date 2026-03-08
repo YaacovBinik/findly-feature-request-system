@@ -1,5 +1,5 @@
-import type { Feature } from "../types/feature.types";
-import { FeatureCard } from "./feature-card";
+import type { Feature } from "../../types/feature.types";
+import { FeatureCard } from "../feature-card/feature-card";
 
 type FeatureListProps = {
   userIdentifier: string;

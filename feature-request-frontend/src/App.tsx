@@ -1,28 +1,28 @@
-import { useMemo, useState } from "react"
-import { Bell, Search } from "lucide-react"
+import { useMemo, useState } from "react";
+import { Bell, Search } from "lucide-react";
 
-import { Input } from "./components/ui/input"
-import { CreateFeatureDialog } from "./features/feature-requests/components/create-feature-dialog"
-import { FeatureList } from "./features/feature-requests/components/feature-list"
-import { FeatureStats } from "./features/feature-requests/components/feature-stats"
-import { useFeatures } from "./features/feature-requests/hooks/use-features"
-import { getUserIdentifier } from "./features/feature-requests/utils/user-identifier"
+import { Input } from "./components/ui/input";
+import { CreateFeatureDialog } from "./features/feature-requests/components/create-feature/create-feature-dialog";
+import { FeatureList } from "./features/feature-requests/components/feature-list/feature-list";
+import { FeatureStats } from "./features/feature-requests/components/feature-stats/feature-stats";
+import { useFeatures } from "./features/feature-requests/hooks/use-features";
+import { getUserIdentifier } from "./features/feature-requests/utils/user-identifier";
 
 function App() {
-  const userIdentifier = useMemo(() => getUserIdentifier(), [])
-  const [search, setSearch] = useState("")
+  const userIdentifier = useMemo(() => getUserIdentifier(), []);
+  const [search, setSearch] = useState("");
 
-  const { data, isLoading, isError } = useFeatures(userIdentifier)
-  const features = data ?? []
+  const { data, isLoading, isError } = useFeatures(userIdentifier);
+  const features = data ?? [];
 
   const filteredFeatures = features.filter((feature) => {
-    const value = search.toLowerCase()
+    const value = search.toLowerCase();
 
     return (
       feature.title.toLowerCase().includes(value) ||
       feature.description.toLowerCase().includes(value)
-    )
-  })
+    );
+  });
 
   return (
     <main className="min-h-screen bg-[#f8f8fb]" dir="rtl">
@@ -60,7 +60,7 @@ function App() {
           <CreateFeatureDialog userIdentifier={userIdentifier} />
         </div>
 
-        <FeatureStats features={features} userIdentifier={userIdentifier} />
+        <FeatureStats features={features} />
 
         <div className="relative mb-6">
           <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -80,7 +80,7 @@ function App() {
         />
       </div>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
