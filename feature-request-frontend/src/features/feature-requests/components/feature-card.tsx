@@ -19,12 +19,14 @@ import {
   Pencil,
   Save,
   X,
+  Trash2,
 } from "lucide-react";
 
 import type { Feature } from "../types/feature.types";
 import { VoteButton } from "./vote-button";
 import { formatRelativeTime } from "../utils/format-relative-time";
 import { updateFeature } from "../api/features.api";
+import { useDeleteFeature } from "../hooks/use-delete-feature";
 
 type FeatureCardProps = {
   feature: Feature;
@@ -36,6 +38,9 @@ export function FeatureCard({ feature, userIdentifier }: FeatureCardProps) {
   const [title, setTitle] = useState(feature.title);
   const [description, setDescription] = useState(feature.description);
   const [isSaving, setIsSaving] = useState(false);
+
+  const { mutate: deleteMutate, isPending: isDeleting } =
+    useDeleteFeature(userIdentifier);
 
   const shortDescription =
     feature.description.length > 110
@@ -68,6 +73,17 @@ export function FeatureCard({ feature, userIdentifier }: FeatureCardProps) {
     setIsEditing(false);
   }
 
+  function handleDelete() {
+    const confirmed = window.confirm("האם אתה בטוח שברצונך למחוק את ההצעה?");
+    if (!confirmed) return;
+
+    deleteMutate(feature.id, {
+      onError: () => {
+        alert("מחיקת ההצעה נכשלה");
+      },
+    });
+  }
+
   return (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value={feature.id} className="border-none">
@@ -93,9 +109,17 @@ export function FeatureCard({ feature, userIdentifier }: FeatureCardProps) {
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <h3 className="truncate text-xl font-semibold text-slate-900">
-                          {feature.title}
-                        </h3>
+                        <div className="flex items-center justify-end gap-2">
+                          {feature.isOwner && (
+                            <span className="shrink-0 rounded-full bg-violet-100 px-2.5 py-1 text-xs font-medium text-violet-700">
+                              שלי
+                            </span>
+                          )}
+
+                          <h3 className="truncate text-xl font-semibold text-slate-900">
+                            {feature.title}
+                          </h3>
+                        </div>
                       </div>
                     </div>
 
@@ -178,6 +202,18 @@ export function FeatureCard({ feature, userIdentifier }: FeatureCardProps) {
 
               <div className="border-t border-slate-100 px-6 py-4">
                 <div className="mb-4 flex justify-end gap-2">
+                  {feature.canDelete && !isEditing && (
+                    <Button
+                      variant="outline"
+                      className="rounded-xl border-red-200 text-red-600 hover:bg-red-50"
+                      onClick={handleDelete}
+                      disabled={isDeleting}
+                    >
+                      <Trash2 className="ml-2 h-4 w-4" />
+                      {isDeleting ? "מוחק..." : "מחק"}
+                    </Button>
+                  )}
+
                   {feature.canEdit && !isEditing && (
                     <Button
                       variant="outline"

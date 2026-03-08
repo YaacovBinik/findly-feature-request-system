@@ -25,6 +25,9 @@ export class FeaturesService {
 
   async findAll(userIdentifier?: string) {
     const features = await this.prisma.feature.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
       include: {
         votes: true,
         _count: {
