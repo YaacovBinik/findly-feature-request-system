@@ -22,23 +22,30 @@ export function CreateFeatureDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-[#6f62f3] px-5">+ בקשה חדשה</Button>
+        <Button className="bg-[#6f62f3] px-5 hover:bg-[#5b4ff0]">
+          + בקשה חדשה
+        </Button>
       </DialogTrigger>
 
-      <DialogContent dir="rtl">
-        <DialogHeader>
-          <DialogTitle>הגש בקשת פיצ׳ר חדש</DialogTitle>
-        </DialogHeader>
+      <DialogContent
+        dir="rtl"
+        className="w-full max-w-170! rounded-2xl border border-[#E5E7EB] bg-white p-0 shadow-xl [&>button]:right-auto [&>button]:left-4"
+      >
+        <div className="px-8 pt-8 pb-6">
+          <DialogHeader className="mb-6 text-right">
+            <DialogTitle className="text-[28px] font-bold leading-none text-[#111827]">
+              הגש בקשה לפיצ׳ר חדש
+            </DialogTitle>
+            <p className="mt-2 text-sm text-[#6B7280]">
+              שתף את הרעיון שלך ועזור לנו לשפר את המוצר
+            </p>
+          </DialogHeader>
 
-        <CreateFeatureForm
-          userIdentifier={userIdentifier}
-          onSuccess={() => setOpen(false)}
-        />
-
-        <div className="flex justify-end">
-          <Button variant="outline" onClick={() => setOpen(false)}>
-            ביטול
-          </Button>
+          <CreateFeatureForm
+            userIdentifier={userIdentifier}
+            onSuccess={() => setOpen(false)}
+            onCancel={() => setOpen(false)}
+          />
         </div>
       </DialogContent>
     </Dialog>

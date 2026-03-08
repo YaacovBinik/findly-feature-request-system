@@ -77,7 +77,7 @@ export function FeatureCardContent({
   }
 
   return (
-    <p className="whitespace-pre-line text-sm leading-8 text-slate-700 min-h-35 max-h-36 overflow-y-auto resize-none">
+    <p className="whitespace-pre-line text-sm leading-8 text-slate-700  max-h-36 overflow-y-auto ">
       {originalDescription}
     </p>
   );
