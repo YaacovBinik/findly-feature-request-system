@@ -1,6 +1,7 @@
 import { ChevronUp } from "lucide-react";
 import { Button } from "../../../../components/ui/button";
 import { useToggleVote } from "../../hooks/use-toggle-vote";
+import { toast } from "sonner";
 
 type VoteButtonProps = {
   featureId: string;
@@ -11,7 +12,7 @@ type VoteButtonProps = {
 };
 
 const baseClasses =
-  "h-16 w-14 rounded-2xl border transition-all flex flex-col items-center justify-center gap-1 px-0";
+  "h-16 w-14 rounded-2xl border transition-all duration-150 active:scale-95 flex flex-col items-center justify-center gap-1 px-0";
 
 const activeClasses =
   "border-violet-500 bg-violet-500 text-white hover:bg-violet-500";
@@ -38,7 +39,13 @@ export function VoteButton({
       variant="outline"
       disabled={isPending || isOwner}
       title={isOwner ? "לא ניתן להצביע להצעה שלך" : "הצבע לפיצ'ר"}
-      onClick={() => mutate(featureId)}
+      onClick={() =>
+        mutate(featureId, {
+          onError: () => {
+            toast.error("לא ניתן היה לעדכן את ההצבעה");
+          },
+        })
+      }
       className={className}
     >
       <ChevronUp className="h-4 w-4" />

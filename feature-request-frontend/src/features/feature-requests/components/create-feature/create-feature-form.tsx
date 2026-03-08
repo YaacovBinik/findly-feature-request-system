@@ -3,6 +3,7 @@ import { Button } from "../../../../components/ui/button";
 import { Input } from "../../../../components/ui/input";
 import { Textarea } from "../../../../components/ui/textarea";
 import { useCreateFeature } from "../../hooks/use-create-feature";
+import { toast } from "sonner";
 
 type CreateFeatureFormProps = {
   userIdentifier: string;
@@ -31,10 +32,14 @@ export function CreateFeatureForm({
       },
       {
         onSuccess: () => {
+          toast.success("הבקשה נוספה בהצלחה");
           setTitle("");
           setDescription("");
           setEmail("");
           onSuccess();
+        },
+        onError: () => {
+          toast.error("יצירת הבקשה נכשלה");
         },
       },
     );

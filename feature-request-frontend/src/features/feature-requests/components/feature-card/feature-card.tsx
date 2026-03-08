@@ -14,6 +14,7 @@ import { FeatureCardHeader } from "./feature-card-header";
 import { FeatureCardContent } from "./feature-card-content";
 import { FeatureCardActions } from "./feature-card-actions";
 import { FeatureCardStats } from "./feature-card-stats";
+import { toast } from "sonner";
 
 type FeatureCardProps = {
   feature: Feature;
@@ -41,10 +42,11 @@ export function FeatureCard({ feature, userIdentifier }: FeatureCardProps) {
       },
       {
         onSuccess: () => {
+          toast.success("השינויים נשמרו");
           setIsEditing(false);
         },
         onError: () => {
-          alert("שמירת השינויים נכשלה");
+          toast.error("שמירת השינויים נכשלה");
         },
       },
     );
@@ -57,12 +59,12 @@ export function FeatureCard({ feature, userIdentifier }: FeatureCardProps) {
   }
 
   function handleDelete() {
-    const confirmed = window.confirm("האם אתה בטוח שברצונך למחוק את ההצעה?");
-    if (!confirmed) return;
-
     deleteMutate(feature.id, {
+      onSuccess: () => {
+        toast.success("ההצעה נמחקה בהצלחה");
+      },
       onError: () => {
-        alert("מחיקת ההצעה נכשלה");
+        toast.error("מחיקת ההצעה נכשלה");
       },
     });
   }
