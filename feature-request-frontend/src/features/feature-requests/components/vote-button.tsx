@@ -1,3 +1,4 @@
+import { ChevronUp } from "lucide-react"
 import { Button } from "../../../components/ui/button"
 import { useToggleVote } from "../hooks/use-toggle-vote"
 
@@ -21,17 +22,19 @@ export function VoteButton({
   return (
     <Button
       type="button"
-      variant={likedByUser ? "default" : "outline"}
+      variant="outline"
       disabled={isPending || isOwner}
       onClick={() => mutate(featureId)}
-      className="h-auto min-w-20 rounded-xl px-4 py-3"
+      className={[
+        "h-16 w-14 rounded-2xl border transition-all",
+        "flex flex-col items-center justify-center gap-1 px-0",
+        likedByUser
+          ? "border-violet-500 bg-violet-500 text-white hover:bg-violet-500"
+          : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50",
+      ].join(" ")}
     >
-      <div className="flex flex-col items-center gap-1">
-        <span className="text-lg font-bold leading-none">{votes}</span>
-        <span className="text-xs leading-none">
-          {isOwner ? "שלך" : likedByUser ? "הצבעת" : "הצבע"}
-        </span>
-      </div>
+      <ChevronUp className="h-4 w-4" />
+      <span className="text-sm font-bold leading-none">{votes}</span>
     </Button>
   )
 }
