@@ -1,32 +1,32 @@
-import { useState } from "react"
-import { Button } from "../../../components/ui/button"
+import { useState } from "react";
+import { Button } from "../../../components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../../components/ui/dialog"
-import { Input } from "../../../components/ui/input"
-import { Textarea } from "../../../components/ui/textarea"
-import { useCreateFeature } from "../hooks/use-create-feature"
+} from "../../../components/ui/dialog";
+import { Input } from "../../../components/ui/input";
+import { Textarea } from "../../../components/ui/textarea";
+import { useCreateFeature } from "../hooks/use-create-feature";
 
 type CreateFeatureDialogProps = {
-  userIdentifier: string
-}
+  userIdentifier: string;
+};
 
 export function CreateFeatureDialog({
   userIdentifier,
 }: CreateFeatureDialogProps) {
-  const [open, setOpen] = useState(false)
-  const [title, setTitle] = useState("")
-  const [description, setDescription] = useState("")
-  const [email, setEmail] = useState("")
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [email, setEmail] = useState("");
 
-  const { mutate, isPending } = useCreateFeature(userIdentifier)
+  const { mutate, isPending } = useCreateFeature(userIdentifier);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     mutate(
       {
@@ -37,19 +37,19 @@ export function CreateFeatureDialog({
       },
       {
         onSuccess: () => {
-          setTitle("")
-          setDescription("")
-          setEmail("")
-          setOpen(false)
+          setTitle("");
+          setDescription("");
+          setEmail("");
+          setOpen(false);
         },
-      }
-    )
-  }
+      },
+    );
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>הצע פיצ׳ר</Button>
+        <Button className="bg-[#6f62f3] px-5">  + בקשה חדשה  </Button>
       </DialogTrigger>
 
       <DialogContent dir="rtl">
@@ -105,5 +105,5 @@ export function CreateFeatureDialog({
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

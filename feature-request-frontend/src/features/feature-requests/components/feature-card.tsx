@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -6,17 +7,24 @@ import {
 } from "../../../components/ui/accordion";
 import { Card, CardContent } from "../../../components/ui/card";
 import { Button } from "../../../components/ui/button";
+import { Input } from "../../../components/ui/input";
+import { Textarea } from "../../../components/ui/textarea";
+
 import {
   CalendarDays,
   MessageSquare,
   UserRound,
   Clock3,
   ChevronUp,
+  Pencil,
+  Save,
+  X,
 } from "lucide-react";
 
 import type { Feature } from "../types/feature.types";
 import { VoteButton } from "./vote-button";
 import { formatRelativeTime } from "../utils/format-relative-time";
+import { updateFeature } from "../api/features.api";
 
 type FeatureCardProps = {
   feature: Feature;
@@ -24,12 +32,41 @@ type FeatureCardProps = {
 };
 
 export function FeatureCard({ feature, userIdentifier }: FeatureCardProps) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [title, setTitle] = useState(feature.title);
+  const [description, setDescription] = useState(feature.description);
+  const [isSaving, setIsSaving] = useState(false);
+
   const shortDescription =
     feature.description.length > 110
       ? `${feature.description.slice(0, 110)}...`
       : feature.description;
 
   const relativeTime = formatRelativeTime(feature.createdAt);
+
+  async function handleSave() {
+    try {
+      setIsSaving(true);
+
+      await updateFeature(feature.id, {
+        title,
+        description,
+        creatorIdentifier: userIdentifier,
+      });
+
+      window.location.reload();
+    } catch (error) {
+      alert("שמירת השינויים נכשלה");
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  function handleCancelEdit() {
+    setTitle(feature.title);
+    setDescription(feature.description);
+    setIsEditing(false);
+  }
 
   return (
     <Accordion type="single" collapsible className="w-full">
@@ -38,7 +75,7 @@ export function FeatureCard({ feature, userIdentifier }: FeatureCardProps) {
           <CardContent className="p-0">
             <div className="border-b border-slate-100 bg-violet-50/50">
               <AccordionTrigger className="w-full px-6 py-5 hover:no-underline">
-                <div className="flex w-full flex-row-reverse items-start justify-between gap-4 text-right">
+                <div className="flex w-full items-start justify-between gap-4 text-right">
                   <div className="shrink-0">
                     <VoteButton
                       featureId={feature.id}
@@ -84,12 +121,75 @@ export function FeatureCard({ feature, userIdentifier }: FeatureCardProps) {
 
             <AccordionContent className="px-0 pb-0 pt-0">
               <div className="px-6 py-8 text-right">
-                <p className="whitespace-pre-line text-sm leading-8 text-slate-700">
-                  {feature.description}
-                </p>
+                {isEditing ? (
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-slate-700">
+                        כותרת
+                      </label>
+                      <Input
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        maxLength={150}
+                        dir="rtl"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-slate-700">
+                        תיאור
+                      </label>
+                      <Textarea
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        rows={6}
+                        maxLength={1000}
+                        dir="rtl"
+                      />
+                    </div>
+
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={handleSave}
+                        disabled={isSaving}
+                        className="rounded-xl bg-emerald-600 hover:bg-emerald-700"
+                      >
+                        <Save className="ml-2 h-4 w-4" />
+                        {isSaving ? "שומר..." : "שמור"}
+                      </Button>
+
+                      <Button
+                        variant="outline"
+                        onClick={handleCancelEdit}
+                        disabled={isSaving}
+                        className="rounded-xl"
+                      >
+                        <X className="ml-2 h-4 w-4" />
+                        ביטול
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="whitespace-pre-line text-sm leading-8 text-slate-700">
+                    {feature.description}
+                  </p>
+                )}
               </div>
 
               <div className="border-t border-slate-100 px-6 py-4">
+                <div className="mb-4 flex justify-end gap-2">
+                  {feature.canEdit && !isEditing && (
+                    <Button
+                      variant="outline"
+                      className="rounded-xl"
+                      onClick={() => setIsEditing(true)}
+                    >
+                      <Pencil className="ml-2 h-4 w-4" />
+                      ערוך
+                    </Button>
+                  )}
+                </div>
+
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center justify-between gap-3 rounded-2xl bg-slate-50 px-4 py-3">
                     <div className="text-sm text-slate-500">

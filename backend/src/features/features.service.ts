@@ -35,25 +35,39 @@ export class FeaturesService {
       },
     });
 
-    return features.map((feature) => ({
-      id: feature.id,
-      title: feature.title,
-      description: feature.description,
-      createdAt: feature.createdAt,
-      updatedAt: feature.updatedAt,
-      votes: feature._count.votes,
-      likedByUser: userIdentifier
-        ? feature.votes.some((vote) => vote.userIdentifier === userIdentifier)
-        : false,
-      isOwner: userIdentifier
+    return features.map((feature) => {
+      const votesCount = feature._count.votes;
+      const isOwner = userIdentifier
         ? feature.creatorIdentifier === userIdentifier
-        : false,
-    }));
+        : false;
+
+      return {
+        id: feature.id,
+        title: feature.title,
+        description: feature.description,
+        createdAt: feature.createdAt,
+        updatedAt: feature.updatedAt,
+        votes: votesCount,
+        likedByUser: userIdentifier
+          ? feature.votes.some((vote) => vote.userIdentifier === userIdentifier)
+          : false,
+        isOwner,
+        canEdit: isOwner && votesCount === 0,
+        canDelete: isOwner,
+      };
+    });
   }
 
   async update(id: string, dto: UpdateFeatureDto) {
     const feature = await this.prisma.feature.findUnique({
       where: { id },
+      include: {
+        _count: {
+          select: {
+            votes: true,
+          },
+        },
+      },
     });
 
     if (!feature) {
@@ -62,6 +76,12 @@ export class FeaturesService {
 
     if (feature.creatorIdentifier !== dto.creatorIdentifier) {
       throw new ForbiddenException('אין לך הרשאה לערוך הצעה זו');
+    }
+
+    if (feature._count.votes > 0) {
+      throw new ForbiddenException(
+        'לא ניתן לערוך הצעה אחרי שהיא קיבלה לייק ראשון',
+      );
     }
 
     return this.prisma.feature.update({

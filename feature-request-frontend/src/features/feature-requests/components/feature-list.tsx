@@ -14,7 +14,6 @@ export function FeatureList({
   isLoading,
   isError,
 }: FeatureListProps) {
-    
   if (isLoading) <div>טוען בקשות...</div>;
 
   if (isError) <div>שגיאה בטעינת הבקשות</div>;

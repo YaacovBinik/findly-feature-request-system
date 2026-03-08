@@ -27,3 +27,27 @@ export const toggleVote = async (featureId: string, userIdentifier: string) => {
 
   return res.data;
 };
+
+export const updateFeature = async (
+  featureId: string,
+  data: {
+    title?: string;
+    description?: string;
+    email?: string;
+    creatorIdentifier: string;
+  },
+) => {
+  const res = await api.patch(`/features/${featureId}`, data);
+  return res.data;
+};
+
+export const deleteFeature = async (
+  featureId: string,
+  creatorIdentifier: string,
+) => {
+  const res = await api.delete(`/features/${featureId}`, {
+    data: { creatorIdentifier },
+  });
+
+  return res.data;
+};

@@ -16,5 +16,6 @@ export class UpdateFeatureDto {
   email?: string;
 
   @IsString()
+  @MaxLength(255)
   creatorIdentifier: string;
 }
