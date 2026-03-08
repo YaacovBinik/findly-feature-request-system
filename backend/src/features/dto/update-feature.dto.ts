@@ -1,4 +1,4 @@
-import { IsEmail, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class UpdateFeatureDto {
   @IsString()
@@ -10,10 +10,6 @@ export class UpdateFeatureDto {
   @IsOptional()
   @MaxLength(1000)
   description?: string;
-
-  @IsEmail()
-  @IsOptional()
-  email?: string;
 
   @IsString()
   @MaxLength(255)

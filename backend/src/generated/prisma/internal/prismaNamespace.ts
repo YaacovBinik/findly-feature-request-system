@@ -596,7 +596,6 @@ export const FeatureScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  email: 'email',
   creatorIdentifier: 'creatorIdentifier',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

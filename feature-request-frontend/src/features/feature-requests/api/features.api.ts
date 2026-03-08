@@ -33,7 +33,6 @@ export const updateFeature = async (
   data: {
     title?: string;
     description?: string;
-    email?: string;
     creatorIdentifier: string;
   },
 ) => {

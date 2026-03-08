@@ -17,7 +17,6 @@ export class FeaturesService {
       data: {
         title: createFeatureDto.title,
         description: createFeatureDto.description,
-        email: createFeatureDto.email,
         creatorIdentifier: createFeatureDto.creatorIdentifier,
       },
     });
@@ -92,7 +91,6 @@ export class FeaturesService {
       data: {
         title: dto.title,
         description: dto.description,
-        email: dto.email,
       },
     });
   }

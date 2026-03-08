@@ -14,6 +14,5 @@ export type Feature = {
 export type CreateFeatureInput = {
   title: string
   description: string
-  email: string
   creatorIdentifier: string
 }

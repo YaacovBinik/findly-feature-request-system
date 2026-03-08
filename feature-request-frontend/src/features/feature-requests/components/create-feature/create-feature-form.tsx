@@ -16,7 +16,6 @@ export function CreateFeatureForm({
 }: CreateFeatureFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [email, setEmail] = useState("");
 
   const { mutate, isPending } = useCreateFeature(userIdentifier);
 
@@ -27,7 +26,6 @@ export function CreateFeatureForm({
       {
         title,
         description,
-        email,
         creatorIdentifier: userIdentifier,
       },
       {
@@ -35,7 +33,6 @@ export function CreateFeatureForm({
           toast.success("הבקשה נוספה בהצלחה");
           setTitle("");
           setDescription("");
-          setEmail("");
           onSuccess();
         },
         onError: () => {
@@ -63,17 +60,6 @@ export function CreateFeatureForm({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="תאר מה היית רוצה שיוסיפו"
-          required
-        />
-      </div>
-
-      <div className="space-y-2">
-        <label className="text-sm font-medium">אימייל</label>
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@example.com"
           required
         />
       </div>
