@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button"
-import { useToggleVote } from "../hooks/use-toggle-vote"
+import { Button } from "../../../components/ui/button";
+import { useToggleVote } from "../hooks/use-toggle-vote";
 
 type VoteButtonProps = {
-  featureId: string
-  votes: number
-  likedByUser: boolean
-  isOwner: boolean
-  userIdentifier: string
-}
+  featureId: string;
+  votes: number;
+  likedByUser: boolean;
+  isOwner: boolean;
+  userIdentifier: string;
+};
 
 export function VoteButton({
   featureId,
@@ -16,7 +16,7 @@ export function VoteButton({
   isOwner,
   userIdentifier,
 }: VoteButtonProps) {
-  const { mutate, isPending } = useToggleVote(userIdentifier)
+  const { mutate, isPending } = useToggleVote(userIdentifier);
 
   return (
     <Button
@@ -28,5 +28,5 @@ export function VoteButton({
     >
       {votes} {likedByUser ? "הצבעת" : "הצבע"}
     </Button>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { FeatureList } from "@/features/feature-requests/components/feature-list"
+import { FeatureList } from "./features/feature-requests/components/feature-list"
 
 function App() {
   return (

@@ -1,16 +1,13 @@
-import { Card, CardContent } from "@/components/ui/card"
-import type { Feature } from "../types/feature.types"
-import { VoteButton } from "./vote-button"
+import { Card, CardContent } from "../../../components/ui/card";
+import type { Feature } from "../types/feature.types";
+import { VoteButton } from "./vote-button";
 
 type FeatureCardProps = {
-  feature: Feature
-  userIdentifier: string
-}
+  feature: Feature;
+  userIdentifier: string;
+};
 
-export function FeatureCard({
-  feature,
-  userIdentifier,
-}: FeatureCardProps) {
+export function FeatureCard({ feature, userIdentifier }: FeatureCardProps) {
   return (
     <Card>
       <CardContent className="flex items-start justify-between gap-4 p-4">
@@ -37,5 +34,5 @@ export function FeatureCard({
         />
       </CardContent>
     </Card>
-  )
+  );
 }
