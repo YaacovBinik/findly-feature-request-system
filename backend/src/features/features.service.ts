@@ -6,6 +6,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateFeatureDto } from './dto/create-feature.dto';
 import { UpdateFeatureDto } from './dto/update-feature.dto';
+import { VoteFeatureDto } from './dto/vote-feature.dto';
 
 @Injectable()
 export class FeaturesService {
@@ -22,16 +23,32 @@ export class FeaturesService {
     });
   }
 
-  async findAll() {
-    return this.prisma.feature.findMany({
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        createdAt: true,
-        updatedAt: true,
+  async findAll(userIdentifier?: string) {
+    const features = await this.prisma.feature.findMany({
+      include: {
+        votes: true,
+        _count: {
+          select: {
+            votes: true,
+          },
+        },
       },
     });
+
+    return features.map((feature) => ({
+      id: feature.id,
+      title: feature.title,
+      description: feature.description,
+      createdAt: feature.createdAt,
+      updatedAt: feature.updatedAt,
+      votes: feature._count.votes,
+      likedByUser: userIdentifier
+        ? feature.votes.some((vote) => vote.userIdentifier === userIdentifier)
+        : false,
+      isOwner: userIdentifier
+        ? feature.creatorIdentifier === userIdentifier
+        : false,
+    }));
   }
 
   async update(id: string, dto: UpdateFeatureDto) {
@@ -73,5 +90,51 @@ export class FeaturesService {
     return this.prisma.feature.delete({
       where: { id },
     });
+  }
+
+  async vote(featureId: string, dto: VoteFeatureDto) {
+    const feature = await this.prisma.feature.findUnique({
+      where: { id: featureId },
+    });
+
+    if (!feature) {
+      throw new NotFoundException('ההצעה לפיצ׳ר לא נמצאה');
+    }
+
+    if (feature.creatorIdentifier === dto.userIdentifier) {
+      throw new ForbiddenException('לא ניתן לתת לייק להצעה שיצרת');
+    }
+
+    const existingVote = await this.prisma.vote.findFirst({
+      where: {
+        featureId,
+        userIdentifier: dto.userIdentifier,
+      },
+    });
+
+    if (existingVote) {
+      await this.prisma.vote.delete({
+        where: {
+          id: existingVote.id,
+        },
+      });
+
+      return {
+        liked: false,
+        message: 'הלייק הוסר',
+      };
+    }
+
+    await this.prisma.vote.create({
+      data: {
+        featureId,
+        userIdentifier: dto.userIdentifier,
+      },
+    });
+
+    return {
+      liked: true,
+      message: 'הלייק נוסף',
+    };
   }
 }
