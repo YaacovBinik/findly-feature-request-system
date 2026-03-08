@@ -1,38 +1,56 @@
-import { Card, CardContent } from "../../../components/ui/card";
-import type { Feature } from "../types/feature.types";
-import { VoteButton } from "./vote-button";
+import { Badge } from "../../../components/ui/badge"
+import { Card, CardContent } from "../../../components/ui/card"
+import type { Feature } from "../types/feature.types"
+import { VoteButton } from "./vote-button"
 
 type FeatureCardProps = {
-  feature: Feature;
-  userIdentifier: string;
-};
+  feature: Feature
+  userIdentifier: string
+}
 
-export function FeatureCard({ feature, userIdentifier }: FeatureCardProps) {
+export function FeatureCard({
+  feature,
+  userIdentifier,
+}: FeatureCardProps) {
   return (
-    <Card>
-      <CardContent className="flex items-start justify-between gap-4 p-4">
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold">{feature.title}</h3>
+    <Card className="rounded-2xl border-border/60 shadow-sm">
+      <CardContent className="flex items-start justify-between gap-4 p-5">
+        <div className="min-w-0 flex-1">
+          <div className="mb-3 flex items-center gap-2">
+            <h3 className="text-xl font-semibold text-foreground">
+              {feature.title}
+            </h3>
 
-          <p className="mt-1 text-sm text-muted-foreground">
+            {feature.isOwner && (
+              <Badge variant="secondary" className="rounded-full">
+                שלי
+              </Badge>
+            )}
+          </div>
+
+          <p className="mb-4 text-sm leading-6 text-muted-foreground">
             {feature.description}
           </p>
 
-          <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
-            <span>{feature.likedByUser ? "עשית לייק" : "עוד לא הצבעת"}</span>
+          <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+            <span>{feature.likedByUser ? "כבר הצבעת" : "עדיין לא הצבעת"}</span>
             <span>•</span>
-            <span>{feature.isOwner ? "שלך" : "של משתמש אחר"}</span>
+            <span>
+              {feature.votes} {feature.votes === 1 ? "הצבעה" : "הצבעות"}
+            </span>
           </div>
         </div>
 
-        <VoteButton
-          featureId={feature.id}
-          votes={feature.votes}
-          likedByUser={feature.likedByUser}
-          isOwner={feature.isOwner}
-          userIdentifier={userIdentifier}
-        />
+        <div className="shrink-0">
+          <VoteButton
+            featureId={feature.id}
+            votes={feature.votes}
+            likedByUser={feature.likedByUser}
+            isOwner={feature.isOwner}
+            userIdentifier={userIdentifier}
+          />
+        </div>
       </CardContent>
     </Card>
-  );
+  )
 }
