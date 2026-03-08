@@ -12,5 +12,24 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  backend:
+    build: ./backend
+    container_name: feature-request-backend
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/feature_requests?schema=public
+      PORT: 3000
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build: ./feature-request-frontend
+    container_name: feature-request-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+
 volumes:
   postgres_data:
