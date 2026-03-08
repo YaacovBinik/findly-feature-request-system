@@ -43,6 +43,7 @@ export function FeatureCardContent({
         <div className="space-y-2">
           <label className="text-sm font-medium text-slate-700">תיאור</label>
           <Textarea
+            className="min-h-35 max-h-36 overflow-y-auto resize-none"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={6}
@@ -76,7 +77,7 @@ export function FeatureCardContent({
   }
 
   return (
-    <p className="whitespace-pre-line text-sm leading-8 text-slate-700">
+    <p className="whitespace-pre-line text-sm leading-8 text-slate-700 min-h-35 max-h-36 overflow-y-auto resize-none">
       {originalDescription}
     </p>
   );

@@ -57,6 +57,7 @@ export function CreateFeatureForm({
       <div className="space-y-2">
         <label className="text-sm font-medium">תיאור</label>
         <Textarea
+          className="min-h-35 max-h-55 overflow-y-auto resize-none"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="תאר מה היית רוצה שיוסיפו"

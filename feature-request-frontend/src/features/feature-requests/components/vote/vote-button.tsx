@@ -39,13 +39,15 @@ export function VoteButton({
       variant="outline"
       disabled={isPending || isOwner}
       title={isOwner ? "לא ניתן להצביע להצעה שלך" : "הצבע לפיצ'ר"}
-      onClick={() =>
+      onClick={(e) => {
+        e.stopPropagation();
+
         mutate(featureId, {
           onError: () => {
             toast.error("לא ניתן היה לעדכן את ההצבעה");
           },
-        })
-      }
+        });
+      }}
       className={className}
     >
       <ChevronUp className="h-4 w-4" />

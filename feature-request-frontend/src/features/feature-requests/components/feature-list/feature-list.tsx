@@ -1,3 +1,4 @@
+import { Accordion } from "../../../../components/ui/accordion";
 import type { Feature } from "../../types/feature.types";
 import { FeatureCard } from "../feature-card/feature-card";
 
@@ -14,21 +15,26 @@ export function FeatureList({
   isLoading,
   isError,
 }: FeatureListProps) {
-  if (isLoading) <div>טוען בקשות...</div>;
+  if (isLoading) return <div>טוען בקשות...</div>;
 
-  if (isError) <div>שגיאה בטעינת הבקשות</div>;
+  if (isError) return <div>שגיאה בטעינת הבקשות</div>;
 
-  if (features.length === 0) <div>אין עדיין בקשות</div>;
+  if (features.length === 0) return <div>אין עדיין בקשות</div>;
 
   return (
-    <div className="space-y-4">
-      {features.map((feature) => (
+    <Accordion
+      type="single"
+      collapsible
+      className="overflow-hidden rounded-3xl border border-slate-200 bg-white"
+    >
+      {features.map((feature, index) => (
         <FeatureCard
           key={feature.id}
           feature={feature}
           userIdentifier={userIdentifier}
+          isLast={index === features.length - 1}
         />
       ))}
-    </div>
+    </Accordion>
   );
 }
