@@ -21,7 +21,6 @@ export function FeatureStats({ features }: FeatureStatsProps) {
         icon={Users}
         label="סה״כ בקשות"
         value={totalFeatures}
-        footer="מערכת פעילה"
         borderColor="border-violet-400"
       />
 
