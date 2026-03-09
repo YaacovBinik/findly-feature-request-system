@@ -29,7 +29,7 @@ export function CreateFeatureDialog({
 
       <DialogContent
         dir="rtl"
-        className="w-full max-w-170! rounded-2xl border border-[#E5E7EB] bg-white p-0 shadow-xl [&>button]:right-auto [&>button]:left-4"
+        className="w-full max-w-170! max-h-[85vh]! overflow-y-auto rounded-2xl border border-[#E5E7EB] bg-white p-0 shadow-xl [&>button]:right-auto [&>button]:left-4"
       >
         <div className="px-8 pt-8 pb-6">
           <DialogHeader className="mb-6 text-right">

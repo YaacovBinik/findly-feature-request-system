@@ -29,6 +29,10 @@ services:
       - backend
     ports:
       - "5173:5173"
+    volumes:
+      - ./feature-request-frontend:/app
+      - /app/node_modules
+    command: npm run dev
 
 volumes:
   postgres_data:
